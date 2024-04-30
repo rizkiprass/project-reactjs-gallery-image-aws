@@ -23,7 +23,7 @@ function App() {
     formData.append('image', selectedFile);
 
     try {
-      const response = await axios.post('http://localhost:8080/upload', formData, {
+      const response = await axios.post('http://localhost:8081/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -39,8 +39,9 @@ function App() {
 
   const fetchImages = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/images');
-      setImageUrls(response.data);
+      const response = await axios.get('http://localhost:8081/images');
+      console.log(response.data.map(image => image.url)); // Log the response data to the console 
+      setImageUrls(response.data.map(image => image.url));
     } catch (error) {
       console.error('Error fetching images: ', error);
       alert('Failed to fetch images');
